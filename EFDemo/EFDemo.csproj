@@ -33,8 +33,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,11 +52,64 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ACTOR.cs">
+      <DependentUpon>MoviesManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CAST.cs">
+      <DependentUpon>MoviesManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DIRECTOR.cs">
+      <DependentUpon>MoviesManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GENRE.cs">
+      <DependentUpon>MoviesManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MOVIE.cs">
+      <DependentUpon>MoviesManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MoviesManagement.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MoviesManagement.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MoviesManagement.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MoviesManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MoviesManagement.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MoviesManagement.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <EntityDeploy Include="MoviesManagement.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MoviesManagement.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="App.Config" />
+    <None Include="MoviesManagement.edmx.diagram">
+      <DependentUpon>MoviesManagement.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MoviesManagement.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MoviesManagement.edmx</DependentUpon>
+      <LastGenOutput>MoviesManagement.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="MoviesManagement.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MoviesManagement.edmx</DependentUpon>
+      <LastGenOutput>MoviesManagement.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
