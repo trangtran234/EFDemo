@@ -53,46 +53,52 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ACTOR.cs">
-      <DependentUpon>MoviesManagement.tt</DependentUpon>
+      <DependentUpon>MoviesManagementEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="CAST.cs">
-      <DependentUpon>MoviesManagement.tt</DependentUpon>
+      <DependentUpon>MoviesManagementEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="DIRECTOR.cs">
-      <DependentUpon>MoviesManagement.tt</DependentUpon>
+      <DependentUpon>MoviesManagementEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="GENRE.cs">
-      <DependentUpon>MoviesManagement.tt</DependentUpon>
+      <DependentUpon>MoviesManagementEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="getActors_Result.cs">
+      <DependentUpon>MoviesManagementEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="getDirectors_Result.cs">
+      <DependentUpon>MoviesManagementEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="MOVIE.cs">
-      <DependentUpon>MoviesManagement.tt</DependentUpon>
+      <DependentUpon>MoviesManagementEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="MoviesManagement.Context.cs">
+    <Compile Include="MoviesManagementEntity.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MoviesManagement.Context.tt</DependentUpon>
+      <DependentUpon>MoviesManagementEntity.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="MoviesManagement.cs">
+    <Compile Include="MoviesManagementEntity.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MoviesManagement.tt</DependentUpon>
+      <DependentUpon>MoviesManagementEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="MoviesManagement.Designer.cs">
+    <Compile Include="MoviesManagementEntity.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MoviesManagement.edmx</DependentUpon>
+      <DependentUpon>MoviesManagementEntity.edmx</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="MoviesManagement.edmx">
+    <EntityDeploy Include="MoviesManagementEntity.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MoviesManagement.Designer.cs</LastGenOutput>
+      <LastGenOutput>MoviesManagementEntity.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="App.Config" />
-    <None Include="MoviesManagement.edmx.diagram">
-      <DependentUpon>MoviesManagement.edmx</DependentUpon>
+    <None Include="MoviesManagementEntity.edmx.diagram">
+      <DependentUpon>MoviesManagementEntity.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -100,15 +106,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MoviesManagement.Context.tt">
+    <Content Include="MoviesManagementEntity.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MoviesManagement.edmx</DependentUpon>
-      <LastGenOutput>MoviesManagement.Context.cs</LastGenOutput>
+      <DependentUpon>MoviesManagementEntity.edmx</DependentUpon>
+      <LastGenOutput>MoviesManagementEntity.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="MoviesManagement.tt">
+    <Content Include="MoviesManagementEntity.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MoviesManagement.edmx</DependentUpon>
-      <LastGenOutput>MoviesManagement.cs</LastGenOutput>
+      <DependentUpon>MoviesManagementEntity.edmx</DependentUpon>
+      <LastGenOutput>MoviesManagementEntity.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

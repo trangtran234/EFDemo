@@ -117,6 +117,8 @@ warning 6002: The table/view 'MOVIESMANAGEMENT.dbo.CASTS' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="getActors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="getDirectors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="MoviesManagementModelStoreContainer">
           <EntitySet Name="ACTOR" EntityType="Self.ACTOR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DIRECTORS" EntityType="Self.DIRECTORS" Schema="dbo" store:Type="Tables" />
@@ -268,7 +270,19 @@ warning 6002: The table/view 'MOVIESMANAGEMENT.dbo.CASTS' does not have a primar
             <End Role="DIRECTORS" EntitySet="DIRECTORS" />
             <End Role="MOVIE" EntitySet="MOVIEs" />
           </AssociationSet>
+          <FunctionImport Name="getActors" ReturnType="Collection(MoviesManagementModel.getActors_Result)" />
+          <FunctionImport Name="getDirectors" ReturnType="Collection(MoviesManagementModel.getDirectors_Result)" />
         </EntityContainer>
+        <ComplexType Name="getActors_Result">
+          <Property Type="String" Name="actor_name" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="movie_name" Nullable="true" MaxLength="256" />
+          <Property Type="Int32" Name="roles_in_the_same_movie" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="getDirectors_Result">
+          <Property Type="String" Name="fname" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="lname" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="the_number_of_movies" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -329,6 +343,24 @@ warning 6002: The table/view 'MOVIESMANAGEMENT.dbo.CASTS' does not have a primar
               <ScalarProperty Name="id" ColumnName="mid" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="getActors" FunctionName="MoviesManagementModel.Store.getActors">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MoviesManagementModel.getActors_Result">
+                <ScalarProperty Name="actor_name" ColumnName="actor_name" />
+                <ScalarProperty Name="movie_name" ColumnName="movie_name" />
+                <ScalarProperty Name="roles_in_the_same_movie" ColumnName="roles_in_the_same_movie" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getDirectors" FunctionName="MoviesManagementModel.Store.getDirectors">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MoviesManagementModel.getDirectors_Result">
+                <ScalarProperty Name="fname" ColumnName="fname" />
+                <ScalarProperty Name="lname" ColumnName="lname" />
+                <ScalarProperty Name="the_number_of_movies" ColumnName="the_number_of_movies" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

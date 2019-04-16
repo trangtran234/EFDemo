@@ -12,6 +12,8 @@ namespace EFDemo
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class MoviesManagementEntities : DbContext
     {
@@ -30,5 +32,15 @@ namespace EFDemo
         public virtual DbSet<GENRE> GENREs { get; set; }
         public virtual DbSet<MOVIE> MOVIEs { get; set; }
         public virtual DbSet<CAST> CASTS { get; set; }
+    
+        public virtual ObjectResult<getActors_Result> getActors()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getActors_Result>("getActors");
+        }
+    
+        public virtual ObjectResult<getDirectors_Result> getDirectors()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getDirectors_Result>("getDirectors");
+        }
     }
 }
