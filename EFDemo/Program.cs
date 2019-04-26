@@ -20,7 +20,7 @@ namespace EFDemo
                     case 1:
                         var actors = (from a in context.ACTORs
                                       join c in context.CASTS on a.id equals c.pid
-                                      join m in context.MOVIEs on c.mid equals m.id
+                                      join m in context.MOVIE on c.mid equals m.id
                                       where m.name == "Officer 444"
                                       select new
                                       {
@@ -36,14 +36,19 @@ namespace EFDemo
                         break;
 
                     case 2:
-                        var directors = context.getDirectors().ToList();
-                        Console.WriteLine("Question 2");
-                        Console.WriteLine("Lengh of result: " + directors.Count());
-                        foreach (var item in directors)
+                        IList<DIRECTOR> directorList = context.DIRECTORS.Select(d => d).ToList();
+                        int count = 0;
+                        int index = 0;
+                        foreach (var item in directorList)
                         {
-                            Console.WriteLine("Director's Firstname: {0}, Director's Lastname: {1}, The number of movie: {2} ", item.lname, item.lname, item.the_number_of_movies);
+                            if (item.MOVIEs.Distinct().Count() >= 500)
+                            {
+                                index = count + 1;
+                                Console.WriteLine("{0}. Director's name: {1}, Number of movies: {2}", index, item.fname + " " + item.lname, item.MOVIEs.Count());
+                                count++;
+                            }
                         }
-                                        
+
                         break;
 
                     case 3:
@@ -62,6 +67,7 @@ namespace EFDemo
                         //                  rolesInTheSameMovie = ag.Key.role_cast.Distinct().Count()
                         //              });
 
+
                         Console.WriteLine("Question 3");
                         Console.WriteLine("Lengh of result: " + results.Count());
                         foreach (var item in results)
@@ -71,37 +77,63 @@ namespace EFDemo
                         break;
 
                     case 4:
-                        Console.WriteLine("Insert");
-                        var actor = new ACTOR()
-                        {
-                            id = 000,
-                            fname = "Michael",
-                            gender = "M"
-                        };
-                        context.ACTORs.Add(actor);
-                        context.SaveChanges();
-                        break;
+                        var query = context.CASTS
+                            .Join(context.ACTORs,
+                                ca => ca.pid,
+                                actor => actor.id,
+                                (ca, actor) => new { ca, actor })
+                            .Join(context.MOVIE,
+                                cast => cast.ca.mid,
+                                movie => movie.id,
+                                (cast, movie) => new { cast, movie })
+                            .Where(m => m.movie.year_movie == 2010)
+                            .GroupBy(c => new { c.cast.ca.role_cast, c.cast.actor.fname, c.cast.actor.lname, c.movie.name })
+                            .Where(g => g.Count() > 5);
+                            //.select(a => new
+                            //{
+                            //    actorname = a.key.fname + " " + a.key.lname,
+                            //    moviename = a.key.fname,
+                            //    number = a.key.role_cast.count()
+                            //});
 
-                    case 5:
-                        Console.WriteLine("Update");
-                        var act = context.ACTORs.SingleOrDefault(a => a.fname == "Michael");
-                        if (act != null)
-                        {
-                            act.lname = "Fores";
-                            context.SaveChanges();
-                        }
-                        break;
+                        Console.WriteLine("Lengh: {0}", query.Count());
 
-                    case 6:
-                        Console.WriteLine("Delete");
-                        var rmv = context.ACTORs.SingleOrDefault(a => a.fname == "Michael");
-                        if (rmv != null)
-                        {
-                            context.ACTORs.Remove(rmv);
-                            context.SaveChanges();
-                        }
-                        break;
+                        //foreach (var item in query)
+                        //{
+                        //    Console.WriteLine("Actor's name: {0}, Movie's name: {1}, Number: {2}", item.actorName, item.movieName, item.number);
+                        //}
+                        
 
+                        //IList<ACTOR> actorExpectedList = new List<ACTOR>();
+                        //foreach (var item in query)
+                        //{
+                        //    actorExpectedList.Add(context.ACTORs.Where(a => a.id == item.CAST.pid).FirstOrDefault());
+                        //}
+
+                        //int lengh = 0;
+                        //IList<MOVIE> moviesOfActor = new List<MOVIE>();
+                        //foreach (var item in actorExpectedList)
+                        //{
+                        //    int lenghMovie = item.CASTS.Count();
+                        //    if (lenghMovie >= 5)
+                        //    {
+                        //        lengh++;
+                        //        foreach (var element in item.CASTS)
+                        //        {
+                        //            moviesOfActor.Add(element.MOVIE);
+                        //        }
+                        //        Console.WriteLine("{0}. Actor's name: {1}, The number of distinct roles: {2}", lengh, item.fname + " " + item.lname, lenghMovie);
+                        //        Console.WriteLine("Movie's name: ");
+                        //        foreach (var movie in moviesOfActor)
+                        //        {
+                        //            Console.WriteLine("        + {0}", movie.name);
+                        //        }
+                        //    }
+                        //}
+                        //Console.WriteLine("===============================================================");
+                        //Console.WriteLine("Lengh: {0}", lengh);
+
+                        break;
                 }
                 Console.ReadLine();
             }

@@ -30,7 +30,7 @@ namespace EFDemo
         public virtual DbSet<ACTOR> ACTORs { get; set; }
         public virtual DbSet<DIRECTOR> DIRECTORS { get; set; }
         public virtual DbSet<GENRE> GENREs { get; set; }
-        public virtual DbSet<MOVIE> MOVIEs { get; set; }
+        public virtual DbSet<MOVIE> MOVIE { get; set; }
         public virtual DbSet<CAST> CASTS { get; set; }
     
         public virtual ObjectResult<getActors_Result> getActors()
